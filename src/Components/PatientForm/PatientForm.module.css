@@ -1,0 +1,30 @@
+.formContainer {
+  display: flex;
+  gap: 12px;
+  flex-direction: column;
+}
+
+.nameContainer, .statusContainer, .addressContainer, .dobContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.nameInputContainer {
+  display: flex;
+  flex-direction: row;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.statusPicker, .dobInput, .addressInput {
+  max-width: 300px;
+}
+
+.buttonContainer {
+  margin-top: 40px;
+  display: flex;
+  gap: 12px;
+}
+
+button {
+  max-width: 100px;
+}

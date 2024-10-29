@@ -1,0 +1,19 @@
+.pageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  height: 100vh;
+}
+
+.authContainer {
+  margin-top: 100px;
+  display: flex;
+  flex-direction: column;
+  width: 260px;
+  gap: 6px;
+}
+
+.errorMessage {
+  color: red;
+}

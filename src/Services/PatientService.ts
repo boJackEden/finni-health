@@ -1,9 +1,6 @@
-import localforage from "localforage";
-import { matchSorter } from "match-sorter";
-import sortBy from "sort-by";
 import { db } from "../Configs/firebase";
 import { doc, getDocs, getDoc, addDoc, updateDoc, deleteDoc, collection } from "firebase/firestore";
-import { TPatient, TSavedPatient } from "../Routes/Patient";
+import { TPatient } from "../Routes/Patient";
 
 const patientsRef = collection(db, "patients");
 

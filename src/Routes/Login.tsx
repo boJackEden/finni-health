@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import {auth, googleProvider} from '../Configs/firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import styles from '../Styles/Routes.module.css';
@@ -61,8 +61,8 @@ const Login: React.FC<LoginProps> = ({}) => {
           type='password'
           onChange={(e) => setPassword(e.target.value)}
         />
-        <button onClick={signIn}>Sign in</button>
-        <button onClick={signInWithGoogle}>Sign in with Google</button>
+        <button className={styles.authButton} onClick={signIn}>Sign in</button>
+        <button className={styles.authButton} onClick={signInWithGoogle}>Sign in with Google</button>
         {loginError.length > 1 && <p className={styles.errorMessage}>{loginError}</p>}
         <div>
           <p>Create an account...</p>

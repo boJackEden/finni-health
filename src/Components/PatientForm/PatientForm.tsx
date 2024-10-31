@@ -1,23 +1,24 @@
 import React from "react";
-import { Form } from "react-router-dom";
+import { Form, useNavigate } from "react-router-dom";
 import { TPatient } from "../../Routes/Patient";
 import styles from "./PatientForm.module.css";
 
 type PatientFormProps = {
-  defaultValues?: TPatient;
+  patientEditValues?: TPatient;
   submitPatientData: (data: TPatient) => void;
 };
 
 export const PatientForm: React.FC<PatientFormProps> = ({
-  defaultValues,
+  patientEditValues,
   submitPatientData,
 }) => {
-  const [firstName, setFirstName] = React.useState(defaultValues?.firstName);
-  const [middleName, setMiddleName] = React.useState(defaultValues?.middleName);
-  const [lastName, setLastName] = React.useState(defaultValues?.lastName);
-  const [address, setAddress] = React.useState(defaultValues?.address);
-  const [status, setStatus] = React.useState(defaultValues?.status);
-  const [dob, setDob] = React.useState(defaultValues?.dob);
+  const navigate = useNavigate();
+  const [firstName, setFirstName] = React.useState(patientEditValues?.firstName);
+  const [middleName, setMiddleName] = React.useState(patientEditValues?.middleName);
+  const [lastName, setLastName] = React.useState(patientEditValues?.lastName);
+  const [address, setAddress] = React.useState(patientEditValues?.address);
+  const [status, setStatus] = React.useState(patientEditValues?.status);
+  const [dob, setDob] = React.useState(patientEditValues?.dob);
 
   const handleSubmit = () => {
     if (
@@ -114,7 +115,9 @@ export const PatientForm: React.FC<PatientFormProps> = ({
       </div>
       <div className={styles.buttonContainer}>
         <button type="submit">Save</button>
-        <button type="button">Cancel</button>
+        <button type="button" onClick={() => {
+          navigate("/dashboard");
+        }}>Cancel</button>
       </div>
     </Form>
   );

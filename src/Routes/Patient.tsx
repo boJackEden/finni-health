@@ -1,7 +1,5 @@
-import { get } from "http";
-import { useEffect, useState } from "react";
-import { Form, useLoaderData } from "react-router-dom";
-import { getPatient } from "../Services/PatientService";
+import { Form, useLoaderData, useNavigate, useParams } from "react-router-dom";
+import { deletePatient } from "../Services/PatientService";
 
 export type TPatient = {
   firstName: string;
@@ -12,21 +10,32 @@ export type TPatient = {
   dob: string;
 };
 
-export const loader = async (patientId: string) => {
-  return getPatient(patientId).then((patientData) => {
-    return patientData;
-  }).catch((e) => {
-    console.error(e);
-  })
-}
+export type TSavedPatient = TPatient & {id: string};
 
 const Patient = () => {
-  const patient = useLoaderData() as TPatient;  
+  const patient = useLoaderData() as TSavedPatient;  
+  const navigate = useNavigate(); 
+  const { patientId } = useParams() as { patientId: string };
+
+  const handleSubmit = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    navigate(`/dashboard/edit-patient/${patientId}`);
+  };
+
+  const handleDelete = (e: { preventDefault: () => void; }) => {
+    e.preventDefault();
+    deletePatient(patientId).then(() => {
+      navigate(`/dashboard`);
+    }).catch((e) => {
+      console.error(e);
+    })
+  }
+
   return (
     <div id="contact">
       <div>
         <img
-          src={"https://robohash.org/you.png?size=200x200"}
+          src={`https://ui-avatars.com/api/?name=${patient.firstName}+${patient.lastName}&background=random`}
         />
       </div>
 
@@ -49,22 +58,12 @@ const Patient = () => {
         {/* {patient.notes && <p>{patient.notes}</p>} */}
 
         <div>
-          <Form action="edit">
+          <Form onSubmit={handleSubmit}>
             <button type="submit">Edit</button>
           </Form>
           <Form
-            method="post"
             action="destroy"
-            onSubmit={(event) => {
-              event.preventDefault();
-              // if (
-              //   !confirm(
-              //     "Please confirm you want to delete this record."
-              //   )
-              // ) {
-              //   event.preventDefault();
-              // }
-            }}
+            onSubmit={handleDelete}
           >
             <button type="submit">Delete</button>
           </Form>
@@ -73,24 +72,5 @@ const Patient = () => {
     </div>
   );
 }
-
-// function Favorite({ patient }: {patient: TPatient}) {
-//   const favorite = patient.favorite;
-//   return (
-//     <Form method="post">
-//       <button
-//         name="favorite"
-//         value={favorite ? "false" : "true"}
-//         aria-label={
-//           favorite
-//             ? "Remove from favorites"
-//             : "Add to favorites"
-//         }
-//       >
-//         {favorite ? "★" : "☆"}
-//       </button>
-//     </Form>
-//   );
-// }
 
 export default Patient;

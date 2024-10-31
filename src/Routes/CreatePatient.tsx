@@ -1,4 +1,3 @@
-import { create } from "domain";
 import { PatientForm } from "../Components/PatientForm/PatientForm";
 import { TPatient } from "./Patient";
 import { createPatient } from "../Services/PatientService";
@@ -13,6 +12,7 @@ export default function CreatePatient() {
       console.error(e);
     });
   }
+
   return (
     <PatientForm submitPatientData={submitPatientData} />
   );

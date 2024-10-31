@@ -60,8 +60,8 @@ const Signup: React.FC<SignupProps> = ({}) => {
         type='password'
         onChange={(e) => setPassword(e.target.value)}
       />
-      <button onClick={createAccountWithEmail}>Sign up</button>
-      <button onClick={createAccountWithGoogle}>Sign up with Google</button>
+      <button className={styles.authButton}  onClick={createAccountWithEmail}>Sign up</button>
+      <button className={styles.authButton}  onClick={createAccountWithGoogle}>Sign up with Google</button>
       {signupError.length > 1 && <p className={styles.errorMessage}>{signupError}</p>}
       <div>
         <p>Already have an account?</p>

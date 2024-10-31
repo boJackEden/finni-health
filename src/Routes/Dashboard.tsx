@@ -1,17 +1,18 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { auth } from '../Configs/firebase';
 import { signOut } from 'firebase/auth';
-import { Link, Outlet, useNavigate, useLoaderData } from 'react-router-dom';
-import { TPatient } from './Patient';
+import { Link, Outlet, useNavigate, useLoaderData, useLocation, useRevalidator } from 'react-router-dom';
+import { TSavedPatient } from './Patient';
 
 type DashboardProps = {
-
 };
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
-
-  const patients = useLoaderData() as TPatient[];
+  const patients = useLoaderData() as TSavedPatient[];
+  const location = useLocation();
+  // const revalidator = useRevalidator();
   const navigate = useNavigate();
+
   const logout = async () => {
     try {
       signOut(auth).then(() => {
@@ -23,7 +24,11 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
       console.error(error);
     }
   }
-  
+
+  // useEffect(() => {
+  //   revalidator.revalidate();
+  // }, []);
+
   return (
     <>
       <div id="sidebar">
@@ -51,7 +56,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
         <nav>
           <ul>
             {
-              patients.map((patient: any) => (
+              patients.map((patient) => (
                 <li key={patient.id}>
                   <Link to={`patient/${patient.id}`}>{`${patient.firstName} ${patient.lastName}`}</Link>
                 </li>
@@ -62,7 +67,7 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
         <button onClick={logout}>Logout</button>
       </div>
       <div id="detail">
-        <Outlet/>
+        {location.pathname === '/dashboard' ? <h1>Welcome to your patient dashboard</h1> : <Outlet />}
       </div>
     </>
   );

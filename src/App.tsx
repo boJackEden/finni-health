@@ -11,3 +11,9 @@ function App() {
 }
 
 export default App;
+
+// TODO:
+// - Add search in patient list
+// - Add Finni logos
+// - Add ability to add more fields to patient data
+// - update patient view to include more fields

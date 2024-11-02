@@ -19,7 +19,8 @@ export const EditPatient: React.FC<EditPatientProps> = ({}) => {
     }).catch((e) => {
       console.error(e);
     })
-  }
+  };
+
   return (
     <PatientForm submitPatientData={submitPatientData} patientEditValues={patient}/>
   );

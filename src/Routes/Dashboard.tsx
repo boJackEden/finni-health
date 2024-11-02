@@ -1,16 +1,15 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { auth } from '../Configs/firebase';
 import { signOut } from 'firebase/auth';
-import { Link, Outlet, useNavigate, useLoaderData, useLocation, useRevalidator } from 'react-router-dom';
+import { Link, Outlet, useNavigate, useLoaderData, useLocation } from 'react-router-dom';
 import { TSavedPatient } from './Patient';
-
+import styles from '../Styles/Routes.module.css';
 type DashboardProps = {
 };
 
 const Dashboard: React.FC<DashboardProps> = ({}) => {
   const patients = useLoaderData() as TSavedPatient[];
   const location = useLocation();
-  // const revalidator = useRevalidator();
   const navigate = useNavigate();
 
   const logout = async () => {
@@ -24,10 +23,6 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
       console.error(error);
     }
   }
-
-  // useEffect(() => {
-  //   revalidator.revalidate();
-  // }, []);
 
   return (
     <>
@@ -64,8 +59,9 @@ const Dashboard: React.FC<DashboardProps> = ({}) => {
             }
           </ul>
         </nav>
-        <button onClick={logout}>Logout</button>
+        <button className={styles.logoutButton} onClick={logout}>Logout</button>
       </div>
+
       <div id="detail">
         {location.pathname === '/dashboard' ? <h1>Welcome to your patient dashboard</h1> : <Outlet />}
       </div>

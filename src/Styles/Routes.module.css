@@ -23,7 +23,11 @@
   max-width: 260px;
 }
 
-
 .errorMessage {
   color: red;
+}
+
+.logoutButton {
+  margin: auto;
+  margin-bottom: 24px;
 }

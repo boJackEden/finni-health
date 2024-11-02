@@ -8,6 +8,7 @@ export type TPatient = {
   address: string[];
   status: 'inquiry' | 'active' | 'onboarding' | 'churned';
   dob: string;
+  customFields?: string;
 };
 
 export type TSavedPatient = TPatient & {id: string};

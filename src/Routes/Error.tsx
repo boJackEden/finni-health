@@ -1,11 +1,7 @@
 import React from 'react'
 import { useRouteError } from "react-router-dom";
 
-type ErrorProps = {
-
-};
-
-const Error: React.FC<ErrorProps> = ({}) => {
+const Error: React.FC = () => {
   const error = useRouteError() as Error;
   console.error(error);
 

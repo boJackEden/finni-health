@@ -3,9 +3,9 @@ import { TPatient } from "./Patient";
 import { createPatient } from "../Services/PatientService";
 import { useNavigate } from 'react-router-dom';
 
-export default function CreatePatient() {
+const CreatePatient: React.FC = () => {
   const navigate = useNavigate();  
-  
+
   const submitPatientData = (patientData: TPatient) => {
     createPatient(patientData).then((id) => {
       navigate(`/dashboard/patient/${id}`);
@@ -18,3 +18,5 @@ export default function CreatePatient() {
     <PatientForm submitPatientData={submitPatientData} />
   );
 }
+
+export default CreatePatient;

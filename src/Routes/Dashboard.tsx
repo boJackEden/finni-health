@@ -1,18 +1,21 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { auth } from '../Configs/firebase';
 import { signOut } from 'firebase/auth';
 import { Link, Outlet, useNavigate, useLoaderData, useLocation, Form } from 'react-router-dom';
 import { TSavedPatient } from './Patient';
 import styles from '../Styles/Routes.module.css';
 import { matchSorter } from 'match-sorter';
-type DashboardProps = {
-};
 
-const Dashboard: React.FC<DashboardProps> = ({}) => {
+
+const Dashboard: React.FC = () => {
   const patientsList = useLoaderData() as TSavedPatient[];
   const location = useLocation();
   const navigate = useNavigate();
   const [patients, setPatients] = useState<TSavedPatient[]>(patientsList);
+
+  useEffect(() => {
+    setPatients(patientsList);
+  }, [patientsList]);
 
   const logout = async () => {
     try {

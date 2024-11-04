@@ -14,7 +14,7 @@ export type TPatient = {
 export type TSavedPatient = TPatient & {id: string};
 
 const Patient = () => {
-  const patient = useLoaderData() as TSavedPatient;  
+  const patient = useLoaderData() as TSavedPatient;
   const navigate = useNavigate(); 
   const { patientId } = useParams() as { patientId: string };
 
@@ -45,8 +45,8 @@ const Patient = () => {
         </h1>
         <div>
           <h3>Address:</h3>
-          {patient.address.map((line) => (
-            <p>{line}</p>
+          {patient.address.map((line, ind) => (
+            <p key={`${line}_${ind}`}>{line}</p>
           ))}
         </div>
         <div>
@@ -58,14 +58,12 @@ const Patient = () => {
           <p>{patient.dob}</p>
         </div>
           {Object.keys(patient.customFields).length > 0 && (
-            <div>
-              {Object.keys(patient.customFields).map((key) => (
-                <>
+              Object.keys(patient.customFields).map((key) => (
+                <div key={patient.id}>
                   <h3>{key}:</h3>
-                  <p key={patient.id}>{patient.customFields[key]}</p>
-                </>
-              ))}
-            </div>
+                  <p>{patient.customFields[key]}</p>
+                </div>
+              ))
           )}
         <div>
           <Form onSubmit={handleEdit}>

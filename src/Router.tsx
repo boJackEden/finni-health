@@ -21,6 +21,7 @@ const router = createBrowserRouter([
     errorElement: <Error />,
     loader: getPatientsLoader,
     shouldRevalidate: ({currentUrl}) => {
+      console.log('Why isnt this loader working?', currentUrl.pathname !== '/dashboard');
       return currentUrl.pathname !== '/dashboard';
     },
     children: [

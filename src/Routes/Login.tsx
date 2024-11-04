@@ -4,11 +4,7 @@ import {auth, googleProvider} from '../Configs/firebase';
 import { signInWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import styles from '../Styles/Routes.module.css';
 
-type LoginProps = {
-
-};
-
-const Login: React.FC<LoginProps> = ({}) => {
+const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [loginError, setLoginError] = useState('');

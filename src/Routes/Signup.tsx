@@ -4,11 +4,7 @@ import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import styles from '../Styles/Routes.module.css';
 
-type SignupProps = {
-
-};
-
-const Signup: React.FC<SignupProps> = ({}) => {
+const Signup: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signupError, setSignupError] = useState('');

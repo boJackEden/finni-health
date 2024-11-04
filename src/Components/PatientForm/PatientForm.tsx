@@ -20,12 +20,7 @@ export const PatientForm: React.FC<PatientFormProps> = ({
   const [address, setAddress] = React.useState(patientEditValues?.address);
   const [status, setStatus] = React.useState(patientEditValues?.status);
   const [dob, setDob] = React.useState(patientEditValues?.dob);
-
-  let _customFields = undefined;
-  if (patientEditValues?.customFields) {
-    _customFields = JSON.parse(patientEditValues.customFields);
-  }
-  const [customFields, setCustomFields] = React.useState(_customFields);
+  const [customFields, setCustomFields] = React.useState(patientEditValues?.customFields || {});
 
   const [modalVisable, setModalVisible] = React.useState(false);
 
@@ -55,9 +50,7 @@ export const PatientForm: React.FC<PatientFormProps> = ({
       address,
       status,
       dob,
-    }
-    if (customFields !== undefined) {
-      patientData.customFields = JSON.stringify(customFields);
+      customFields,
     }
     submitPatientData(patientData);
   };
@@ -136,23 +129,23 @@ export const PatientForm: React.FC<PatientFormProps> = ({
             onChange={(e) => setDob(e.target.value)}
           />
         </div>
-        {Object.keys(customFields || {}).map((key) => (
-          <div key={key} className={styles.customFieldContainer}>
-            <span>{key}</span>
-            <input
-              type="text"
-              name={key}
-              required 
-              value={customFields[key]}
-              onChange={(e) =>
-                setCustomFields({
-                  ...customFields,
-                  [key]: e.target.value,
-                })
-              }
-            />
-          </div>
-        ))}
+        {Object.keys(customFields).map((key) => (
+            <div key={key} className={styles.customFieldContainer}>
+              <span>{key}</span>
+              <input
+                type="text"
+                name={key}
+                required 
+                value={customFields[key]}
+                onChange={(e) =>
+                  setCustomFields({
+                    ...customFields,
+                    [key]: e.target.value,
+                  })
+                }
+              />
+            </div>
+          ))}
         <div className={styles.buttonContainer}>
           <button type="submit">Save</button>
           <button type="button" onClick={() => {

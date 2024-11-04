@@ -8,7 +8,7 @@ export type TPatient = {
   address: string[];
   status: 'inquiry' | 'active' | 'onboarding' | 'churned';
   dob: string;
-  customFields?: string;
+  customFields: {[key: string]: string};
 };
 
 export type TSavedPatient = TPatient & {id: string};
@@ -18,7 +18,7 @@ const Patient = () => {
   const navigate = useNavigate(); 
   const { patientId } = useParams() as { patientId: string };
 
-  const handleSubmit = (e: { preventDefault: () => void; }) => {
+  const handleEdit = (e: { preventDefault: () => void; }) => {
     e.preventDefault();
     navigate(`/dashboard/edit-patient/${patientId}`);
   };
@@ -29,7 +29,7 @@ const Patient = () => {
       navigate(`/dashboard`);
     }).catch((e) => {
       console.error(e);
-    })
+    });
   }
 
   return (
@@ -39,27 +39,36 @@ const Patient = () => {
           src={`https://ui-avatars.com/api/?name=${patient.firstName}+${patient.lastName}&background=random`}
         />
       </div>
-
       <div>
         <h1>
-          {patient.firstName} {patient.lastName}  
+            {patient.firstName} {patient.lastName}  
         </h1>
-
-        {/* {patient.twitter && (
-          <p>
-            <a
-              target="_blank"
-              href={`https://twitter.com/${patient.twitter}`}
-            >
-              {patient.twitter}
-            </a>
-          </p>
-        )} */}
-
-        {/* {patient.notes && <p>{patient.notes}</p>} */}
-
         <div>
-          <Form onSubmit={handleSubmit}>
+          <h3>Address:</h3>
+          {patient.address.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
+        <div>
+          <h3>Status:</h3>
+          <p>{patient.status}</p>
+        </div>
+        <div>
+          <h3>Date of Birth:</h3>
+          <p>{patient.dob}</p>
+        </div>
+          {Object.keys(patient.customFields).length > 0 && (
+            <div>
+              {Object.keys(patient.customFields).map((key) => (
+                <>
+                  <h3>{key}:</h3>
+                  <p key={patient.id}>{patient.customFields[key]}</p>
+                </>
+              ))}
+            </div>
+          )}
+        <div>
+          <Form onSubmit={handleEdit}>
             <button type="submit">Edit</button>
           </Form>
           <Form

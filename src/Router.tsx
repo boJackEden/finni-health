@@ -8,6 +8,7 @@ import Patient from './Routes/Patient';
 import { getPatients as getPatientsLoader, getPatient as getPatientLoader } from './Services/PatientService';
 import CreatePatient from './Routes/CreatePatient';
 import { EditPatient } from './Routes/EditPatient';
+import PatientTable from './Routes/PatientTable';
 
 const router = createBrowserRouter([
   {
@@ -43,6 +44,19 @@ const router = createBrowserRouter([
       }
     ]
   }, 
+  {
+    path: '/patient-table',
+    element: (
+      <ProtectedWrapper>
+        <PatientTable /> 
+      </ProtectedWrapper>
+    ),
+    errorElement: <Error />,
+    loader: getPatientsLoader,
+    shouldRevalidate: ({currentUrl}) => {
+      return currentUrl.pathname !== '/patient-table';
+    },
+  },
   {
     path: '/login',
     element: <Login/>
